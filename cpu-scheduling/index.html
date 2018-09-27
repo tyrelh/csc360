@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Round-robin CPU Scheduling</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<script src="live.js"></script>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			margin:0;
+			padding:0;
+		}
+		canvas {
+			margin:auto;
+		}
+	</style>
+</head>
+<body>
+	<div style="margin-left: 1%; margin-right: 9%">
+		<h2>Tyrel Hiebert</h2>
+		<h3>CSC 360 - Assignment 3</h3>
+		<p></p>July 15, 2018</p>
+		<p>These graphs describe the wait times, and total turnaround times of proccesses in a simulated CPU scheduler using a round-robin algorithm.</p>
+		<p>Each data point are the averages of 2000 processes using a variable quantum length and dispatch overhead time.</p>
+	</div>
+	<div style="width: 90%; height: 450px;"> 
+		<canvas id="waitTimes" width="400" height="400"></canvas>
+	</div>
+	<div style="width: 90%; height: 450px;">
+		<canvas id="turnaroundTimes" width="400" height="400"></canvas>
+	</div>
+	<div style="margin-left: 1%; margin-right: 9%">
+			<h2>Simulation, Data Aggrigation, & Statistics</h2>
+			<p>I used a python script to run my simulations. First, it will build a string for each combination of quantum and dispatch times of the c commands <i>simgen</i> and <i>rrsim</i>, using 2000 processes and 8825 for the seed of <i>simgen</i>, and piping the results of <i>simgen</i> into <i>rrsim</i>. After each string is built, it will use Python3's <i>subprocess</i> module to run the processes and return the output. All the outputs are accumulated in order.</p>
+			<p>Next it will search the output for the <i>EXIT</i> events for all the tasks of a given trial, pull out their wait time and turnaround time, and add these to lists.</p>
+			<p>Then it will  calculate the averages of the wait time list and the turnaround time list.</p>
+			<p>Finally, the script will format the output to have each trial on a line with its quantum, dispatch, wait, and turnaround time. This formatted output is then saved to a text file to be read by the graphing script.</p>
+	
+			<h2>Graphing & Analysis</h2>
+			<p>The data is then loaded into JavaScript. I separate the data into a quantum list, dispatch list, wait time list, and dispatch time list. Then, using a library called <a href="http://www.chartjs.org/">Chart.js</a>, I plot the data using a line graph. I set up the two graphs (for wait and turnaround time) so that the results for each quantum were plotted separately using different colours. I then printed each graph separately to pdf using Chrome to produce the deliverables required.</p>
+			<p>From the graphs I can see that there is a very linear relationship between wait time, turnaround time, quantum length, and dispatch length. Longer dispatch times produce longer wait times and longer turnaround times. While inversley, longer quantum times produce shorter wait times and shorter turnaround times. The best scenario seems to be the longest possible quantum length with the shortest possible dispatch time. For quantum times this seems to be mainly due to the quantum being cut short when a process finishes. So there is never any wasted time while in the quantum.</p>
+			
+			<h2>Extra Analysis</h2>
+			<p>I tried another experiment by increasing the quantum length even more by doubling the previous maximum of 500 up to 1000. The results show even better wait times and turnaround times. Once the quantum becomes large enough that any given task can complete within one quantum, the round-robin algorithm essentially devolves into a FCFS (first come first serve) algorithm.</p>
+			<p>It seems the case that as the dispatch time increases, quantum length becomes more important for shorter turnaround times (and also shorter wait times). Equally, as the quantum time decreases, the dispatch time becomes more influential.</p>
+			<p>A simple analysis shows that the difference between quantum lengths of 50 and 500 at a dispatch time of 0 gives roughly 17.8% time improvement (using quantum of 500). On the other side, the improvement of using a quantum time of 500 over 50 with a dispatch time of 25 yields a 47.9% improvement.</p>
+	</div>
+</body>
+</html>
