@@ -2,7 +2,6 @@
  * sh360 Shell
  * 
  * Tyrel Hiebert
- * V00898825
  * 
  * Assignment 1
  * CSC 360 Summer 2018

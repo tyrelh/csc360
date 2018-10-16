@@ -1,6 +1,5 @@
 /*
  * Tyrel Hiebert
- * V00898825
  * CSC 360 - Assignment 4
  * UVICFS18
  * July 28, 2018

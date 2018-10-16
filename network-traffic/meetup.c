@@ -1,6 +1,5 @@
 /*
  * Hiebert, Tyrel
- * V00898825
  * CSC 360
  * Assignment 2
  * Meetup
